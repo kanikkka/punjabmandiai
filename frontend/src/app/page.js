@@ -12,7 +12,6 @@ import LiveActivity from "@/components/dashboard/LiveActivity";
 import AIInsights from "@/components/dashboard/AIInsights";
 import SmartAlerts from "@/components/dashboard/SmartAlerts";
 import FloatingChatbot from "@/components/chatbot/FloatingChatbot";
-import PunjabMap from "@/components/maps/PunjabMap";
 import RealPrediction from "@/components/ai/RealPrediction";
 import AIStatus from "@/components/dashboard/AIStatus";
 import VoiceAssistant from "@/components/voice/VoiceAssistant";
@@ -78,7 +77,7 @@ export default function HomePage() {
 <AIStatus />
 <FloatingChatbot />
 <VoiceAssistant />
-<PunjabMap />
+
       <FooterSection />
       
     </main>
