@@ -1,7 +1,14 @@
-node_modules/
 frontend/node_modules/
 frontend/.next/
 dist/
 build/
 .env
 *.log
+
+# Python
+backend/venv/
+**/__pycache__/
+*.pyc
+
+# Database (optional)
+*.db
