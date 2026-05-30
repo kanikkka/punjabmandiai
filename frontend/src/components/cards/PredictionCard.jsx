@@ -40,7 +40,7 @@ export default function PredictionCard() {
     try {
 
       const response = await axios.get(
-        `http://127.0.0.1:8000/predict/${crop}`
+        `https://punjabmandiai-1.onrender.com/predict/${crop}`
       );
 
       setData(response.data.prediction);

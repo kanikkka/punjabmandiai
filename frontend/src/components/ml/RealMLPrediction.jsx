@@ -28,7 +28,7 @@ export default function RealMLPrediction() {
         const response =
           await axios.get(
 
-            "http://127.0.0.1:8000/ml/predict"
+            "https://punjabmandiai-1.onrender.com/ml/predict"
 
           );
 

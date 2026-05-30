@@ -34,7 +34,7 @@ export default function StatsSection() {
     try {
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/stats/live"
+        "https://punjabmandiai-1.onrender.com/stats/live"
       );
 
       setStats(response.data);

@@ -20,7 +20,7 @@ export default function TransportOptimizer() {
     try {
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/transport/optimize"
+        "https://punjabmandiai-1.onrender.com/transport/optimize"
       );
 
       setData(response.data);

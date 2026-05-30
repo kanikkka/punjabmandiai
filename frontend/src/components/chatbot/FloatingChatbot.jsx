@@ -88,7 +88,7 @@ export default function FloatingChatbot() {
     try {
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/chat",
+        "https://punjabmandiai-1.onrender.com/chat",
         {
           message,
           language,

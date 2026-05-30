@@ -20,7 +20,7 @@ export default function MarketAnomaly() {
     try {
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/market/anomaly"
+        "https://punjabmandiai-1.onrender.com/market/anomaly"
       );
 
       setData(response.data);
