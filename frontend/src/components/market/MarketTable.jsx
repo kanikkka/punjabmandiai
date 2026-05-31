@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 
+const [records, setRecords] = useState([]);
+const [cards, setCards] = useState([]);
 export default function MarketTable() {
 
   const [records, setRecords] =
@@ -30,8 +32,17 @@ export default function MarketTable() {
       const response = await axios.get(
         "https://punjabmandiai-1.onrender.com/market/live"
       );
+const cardsResponse = await axios.get(
+  "https://punjabmandiai-1.onrender.com/market/cards"
+);
 
-      setRecords(response.data.records);
+setCards(cardsResponse.data);
+      if (response.data.records) {
+  setRecords(response.data.records);
+} else if (response.data.fallback_data) {
+  setRecords(response.data.fallback_data);
+}
+console.log("API DATA:", response.data);
 
     } catch (error) {
 
@@ -50,6 +61,22 @@ export default function MarketTable() {
         {/* Heading */}
 
         <div className="mb-14">
+          <div className="grid md:grid-cols-4 gap-6 mb-10">
+  {cards.map((card, index) => (
+    <div
+      key={index}
+      className="glass rounded-3xl p-6 text-center"
+    >
+      <h3 className="text-xl font-bold">
+        {card.commodity}
+      </h3>
+
+      <p className="text-green-400 text-3xl font-bold mt-3">
+        ₹{card.price}
+      </p>
+    </div>
+  ))}
+</div>
 
           <p className="text-green-400 text-lg">
 

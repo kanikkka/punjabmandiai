@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import axios from "axios";
 
 export default function MandiPrices() {
@@ -10,43 +9,29 @@ export default function MandiPrices() {
 
   useEffect(() => {
 
-  fetchPrices();
-
-  const interval = setInterval(() => {
-
     fetchPrices();
 
-  }, 10000);
+    const interval = setInterval(() => {
+      fetchPrices();
+    }, 30000);
 
-  return () => clearInterval(interval);
+    return () => clearInterval(interval);
 
-}, []);
+  }, []);
 
   const fetchPrices = async () => {
 
     try {
 
       const response = await axios.get(
-        "https://punjabmandiai-1.onrender.com/market/live"
+        "https://punjabmandiai-1.onrender.com/market/cards"
       );
 
-      console.log(response.data);
-
-      if (response.data.records) {
-
-        setPrices(response.data.records);
-
-      }
-
-      else if (response.data.fallback_data) {
-
-        setPrices(response.data.fallback_data);
-
-      }
+      setPrices(response.data);
 
     } catch (error) {
 
-      console.log(error);
+      console.log("Error loading prices:", error);
 
     }
 
@@ -58,127 +43,70 @@ export default function MandiPrices() {
 
       <div className="max-w-7xl mx-auto">
 
-        {/* Heading */}
-
         <div className="mb-14">
 
           <p className="text-green-400 text-lg">
-            Real Government Market Data
+            Agricultural Market Dataset
           </p>
 
           <h2 className="text-5xl font-black mt-4">
-
-            Live Mandi Prices
-
+            Mandi Price Highlights
           </h2>
+
+          <p className="text-gray-400 mt-4">
+            Historical mandi price records used for analytics and AI forecasting.
+          </p>
 
         </div>
 
-        {/* Table */}
+        <div className="grid md:grid-cols-4 gap-6">
 
-        <div
-          className="
-            glass
-            rounded-[40px]
-            overflow-hidden
-          "
-        >
+          {prices.length > 0 ? (
 
-          <div className="overflow-x-auto">
+            prices.map((item, index) => (
 
-            <table className="w-full">
-
-              <thead
+              <div
+                key={index}
                 className="
-                  bg-white/10
-                  text-left
+                  glass
+                  rounded-[30px]
+                  p-8
+                  text-center
+                  hover:scale-105
+                  transition
                 "
               >
 
-                <tr>
+                <h3 className="text-2xl font-bold">
+                  {item.commodity}
+                </h3>
 
-                  <th className="p-6">
-                    Commodity
-                  </th>
+                <p className="text-green-400 text-4xl font-black mt-4">
+                  ₹{item.price}
+                </p>
 
-                  <th className="p-6">
-                    Market
-                  </th>
+                <p className="text-gray-400 mt-3">
+                  Dataset Price
+                </p>
 
-                  <th className="p-6">
-                    Price
-                  </th>
+              </div>
 
-                </tr>
+            ))
 
-              </thead>
+          ) : (
 
-              <tbody>
+            <div className="col-span-4 text-center text-gray-400 py-10">
+              Loading mandi prices...
+            </div>
 
-                {prices.length > 0 ? (
-
-                  prices.map((item, index) => (
-
-                    <tr
-                      key={index}
-                      className="
-                        border-t
-                        border-white/10
-                        hover:bg-white/5
-                        transition
-                      "
-                    >
-
-                      <td className="p-6 font-semibold">
-
-                        {item.commodity}
-
-                      </td>
-
-                      <td className="p-6 text-gray-300">
-
-                        {item.market}
-
-                      </td>
-
-                      <td className="p-6 text-green-400 font-bold">
-
-                        ₹
-                        {item.modal_price || item.price}
-
-                      </td>
-
-                    </tr>
-
-                  ))
-
-                ) : (
-
-                  <tr>
-
-                    <td
-                      colSpan="3"
-                      className="p-10 text-center text-gray-400"
-                    >
-
-                      Loading live mandi data...
-
-                    </td>
-
-                  </tr>
-
-                )}
-
-              </tbody>
-
-            </table>
-
-          </div>
+          )}
 
         </div>
 
       </div>
 
     </section>
+
   );
+
 }
